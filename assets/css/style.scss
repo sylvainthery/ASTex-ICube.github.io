@@ -1,0 +1,62 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.inner {
+	max-width: 10000px;
+}
+
+#header_wrap header {
+	padding: 50px 50px 30px;
+}
+
+#main_content_wrap {
+	display: flex;
+	flex-direction: row;
+}
+
+#main_content {
+	flex: 5;
+}
+
+#side_menu {
+	padding-top: 55px;
+	flex: 1;
+	text-align: right;
+	padding-right: 20px;
+}
+
+#side_menu ul {
+	list-style: none;
+}
+#menu_root {
+	border-right: 1px solid rgb(15, 121, 208);
+	padding-right: 10px;
+	font-weight: bold;
+}
+#side_menu ul ul {
+	padding-right: 20px;
+	font-size: 0.9em;
+	margin-bottom: 0;
+	font-weight: normal;
+}
+#side_menu ul ul ul {
+	font-style: italic;
+}
+
+p.warning {
+	padding: 15px;
+	font-style: italic;
+	color: rgb(255, 75, 75);
+	background-color: rgb(255, 240, 250);
+}
+
+img {
+	max-width: 500px;
+}
+
+img + em {
+	display: block;
+	text-align: center;
+}

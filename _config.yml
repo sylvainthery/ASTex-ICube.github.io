@@ -1,0 +1,3 @@
+theme: jekyll-theme-slate
+title: CGoGN documentation
+description: A C++ library for the representation of meshes with Combinatorial Maps
