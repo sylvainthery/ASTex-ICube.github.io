@@ -5,7 +5,7 @@
 10/24 ASTex available on [github](https://github.com/ASTex-ICube/ASTex)
 
 
-[contribs](# Contributors and contact)
+# Contributors and contact
 The library is developed in the [IGG](http://icube-igg.unistra.fr/en/index.php/Main_Page) team of the [ICube](https://icube.unistra.fr/) laboratory of Strasbourg.
 The contributors are:
 
@@ -26,6 +26,7 @@ Contact: astex AT icube.unistra.fr
 
 
 # Installation
+
 ## Dependencies:
 To compile and use ASTex, you need some libraries:
 - ITK 4.10 
@@ -59,17 +60,21 @@ Then you can install the dependencies:
 - brew install libpng
 
 ## Windows
+
 ### Software to install:
+
 - VisualStudio C++ (2015 min)
 - CMake (3.0 min),
 - jom (already installed if you have QtCreator) for multi-threaded compilation of dependencies 
 
 ### Source to downloads:
+
 - get sources of zlib
 - get sources of OpenEXR (use github, archive on OpenEXR.com has bugs)
 - get sources of InsightToolKit
 
 ### Compile dependencies
+
 - use furnished compilation scripts:
   - make a local copy of folder __script_windows__ to avoid pushing your modifications on git server
   - edit your installvars.bat (check path for exec, src and installation)
@@ -87,6 +92,7 @@ Then you can install the dependencies:
   - installed-Debug for debug
 
 ## Data
+
 Some tests, tutorials and algorithms use read example images and write some results.
 In order to keep original Data directory of ASTex clean we use a copy which pass can be choosen 
 at cmake configuration stage.
@@ -94,6 +100,7 @@ at cmake configuration stage.
 You have to copy yourself the contain of the Data directory in to the right place (see ASTEX\_TEMPO\_PATH clake variable).
 
 ## Compilation
+
 ### on Linux & Mac
 Use CMake as usual:
 * create a build directory as same level than ASTex (ASTex-build or ASTex-buildDebug for example)
@@ -189,7 +196,7 @@ There is some tutorials that explain briefly concepts and data structures of AST
 
 To run the tuto, first copy Data/*.png in TEMPO_PATH(/tmp)
 
-[implemented](# Implemented Algorithms)
+# Implemented Algorithms
 
 ## Bi-Layer Textures
 
