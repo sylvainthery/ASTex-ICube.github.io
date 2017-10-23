@@ -140,12 +140,13 @@ And also for the parallel version:
 Algorithms writen with new syntax can easily be encapsulated into ITK filter system.
 And the two syntaxes can also be mixed to profit of provided ITK algorithms.
 
-We do not inherit from ITK image. Each Image class is ...
+<!---
+We do not inherit from ITK image. Each Image class is
 
 <p align="center">
-	<img alt="class hierarchy" src="/assets/img/class_astex.svg" width= 70%>
+	<img alt="class hierarchy" src="/assets/img/class_astex.png" width= 70%>
 </p>
-
+-->
 
 
 ## Supported image types
