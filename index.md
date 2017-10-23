@@ -1,4 +1,16 @@
+
 # Introduction
+
+ASTex is an open-source library for texture analysis and synthesis.
+The term “texture” must be understood as in computer graphics.
+The purpose of this library is to support collaborative coding and to allow for comparison with recently published algorithms. 
+
+Main features are:
+- C++ source code is freely available on github
+- It is based on [ITK](https://itk.org/) (Insight Segmentation and Registration Toolkit)
+- Linux / Windows / Mac compliant 
+- No graphical interface
+- CPU implementations for maximum compatibility
 
 
 # News
@@ -7,22 +19,17 @@
 
 # Contributors and contact
 The library is developed in the [IGG](http://icube-igg.unistra.fr/en/index.php/Main_Page) team of the [ICube](https://icube.unistra.fr/) laboratory of Strasbourg.
+
 The contributors are:
+- [Rémi Allegre](http://igg.unistra.fr/People/allegre/)
+- [Jean-Michel Dischler](http://dpt-info.u-strasbg.fr/~dischler/)
+- Geoffrey Guingo
+- Frédéric Larue
+- [Basile Sauvage](http://icube-igg.unistra.fr/en/index.php/Basile_Sauvage)
+- [Sylvain Thery](http://icube-igg.unistra.fr/en/index.php/Utilisateur:Thery)
 
-[Rémi Allegre](http://icube-igg.unistra.fr/en/index.php/Rémi_Allègre)
+[email contact](mailto:astex@icube.unistra.fr)
 
-[Jean-Michel Dischler](http://dpt-info.u-strasbg.fr/~dischler/)
-
-[Geoffrey Guingo]
-
-[Frédéric Larue]
-
-[Basile Sauvage](http://icube-igg.unistra.fr/en/index.php/Basile_Sauvage)
-
-[Sylvain Thery](http://icube-igg.unistra.fr/en/index.php/Utilisateur:Thery)
-
-
-Contact: astex AT icube.unistra.fr
 
 
 # Installation
@@ -31,13 +38,12 @@ Contact: astex AT icube.unistra.fr
 To compile and use ASTex, you need some libraries:
 - ITK 4.10 
 - zlib
-- libpng for saving/loading indexed  png images.
 - openexr for saving/loading images in floating point format.
 
 You need some classic development tools (minimal supported version)
 - git
 - cmake 3.0
-- a _recent_C++ compiler 
+- a _recent_ C++ compiler 
 	- g++ 4.9
 	- clang 3.3
 	- Visual Studio C++ 2015
@@ -108,11 +114,11 @@ Use CMake as usual:
 * or let (a recent) Qtcreator do the job !
 
 ### on Windows + VisualStudio
-You have the choice:
-* use CMake-gui
-* or use the script _reset\_astex\_solu_ in your copy of _script\_windows_
 
-Then launch Visual and load ASTex solution which has been generated in the build directory
+* build directory has been createde by install script
+* use the script _reset\_astex\_solu_ in your copy of _script\_windows_ in case of trouble
+* use CMake-gui to customize the build
+* then launch Visual and load ASTex solution which has been generated in the build directory
 
 ### CMake Options
 There are some original options/values that can be set at the cmake stage:
@@ -128,7 +134,8 @@ There are some original options/values that can be set at the cmake stage:
 ASTex is based on the library [ITK](https://itk.org/).
 As ITK can perform its algorithms (filters) on images of different dimension,
 its syntax is often complex. Its system of filter pipeline is perfect for an high
-level usage, but is boring for quickly prototype application with its own filters.
+level usage, but is boring for quickly prototype application which need development of
+its own new filters.
 
 In order to easily and quickly prototype texture generation application, we propose
 a syntax overlay for 2D image manipulation.
@@ -147,12 +154,24 @@ And also for the parallel version:
 Algorithms writen with new syntax can easily be encapsulated into ITK filter system.
 And the two syntaxes can also be mixed to profit of provided ITK algorithms.
 
-<!---
-We do not inherit from ITK image. Each Image class is
+## Inheritance
+
+All classes of supported image type follow this kind of inheritance diagram:
+
+![Example of ASTex class hierarchy](/assets/img/class_astex.png "Example of ASTex class hierarchy")
+
+- the ImageBase class is only used for type checking
+- the ImageGrayBase class is the real gray image class. I contains a pointer on itk::image, some type definitions and methods which depends on image type.
+- the ImageCommon class enhance its param image class with all code that is common to image types.
+The second parameter allow the definition of *normal* Image and class ConstImage. It is important
+to allow the writing of filters with out wild const_cast.
+
+<!--
 
 <p align="center">
 	<img alt="class hierarchy" src="/assets/img/class_astex.png" width= 70%>
 </p>
+
 -->
 
 
@@ -175,15 +194,19 @@ And spectral images (1 channel) :
 * float / double
 * complex of float or double
 
+All floating-point images can be load and save with on the fly conversion from \[0,2\]to uint8 classic file format or saved in EXR 32 bits float format (double is not supported).
+
 # Tutorials
+
 There is some tutorials that explain briefly concepts and data structures of ASTex:
-* tuto_gray : 
-* tuto_rgb :
+* tuto_gray : loading, modifying and saving gray images
+* tuto_rgb : loading, modifying and saving RGB images
+* tuto_pixel_type: Usage of the PixelType and ASTexPixelType.
 * tuto_traverse_iterators: how to traverse pixels using Iterator syntax (inherited from ITK)
 * tuto_traverse_for\_all: how to traverse pixels using for_all_pixels c++11 lambda programming style.
-* tuto_pixel_type: Usage of the PixelType and ASTexPixelType.
-* tuto_mask
-* tuto\_color\_filters
+* tuto_mask: definition, manipulation and usage of masks
+* tuto\_png\_indexed
+* tuto\_color\_filters: color conversion RGB LUV XYZ LAB
 * tuto on creating filters
   * tuto_filter1: example of pure itk filters (mono-thread/multi-thread)
   * tuto_filter2: example of filters using ASTex syntax (simple, in place & mt)
@@ -192,23 +215,30 @@ There is some tutorials that explain briefly concepts and data structures of AST
   * tuto_filter5: example of filter with 4 ouputs of different types
   * tuto_filter6: example of filter with an output whose size is different from the input 
   * tuto_filter7: example of filter with 2 outputs of different size
-* tuto\_png\_indexed
 
 To run the tuto, first copy Data/*.png in TEMPO_PATH(/tmp)
 
 # Implemented Algorithms
 
+## Quilting
+Implementation of the _image quilting_ process presented in [^ef01]
+
+<!--
+[^ef01]: \[EF01\]Efros, Alexei A. and Freeman, William T.<br>
+Image Quilting for Texture Synthesis and Transfer,<br> SIGGRAPH '01
+-->
+
+## Wang Tiles
+
+__(Soon Available)__ Implementation of the _wang tile_ texture generation method presented in [^CS03]
+
 ## Bi-Layer Textures
 
-  Implementaion of the method presented in [GS17](https://hal.archives-ouvertes.fr/hal-01528537/).
+  Implementaion of the method presented in [^GS17].
 Global implementation can be tested, but also 4 independant important step of the algorithm, as
 described below.
 
 Executable for Linux, Mac & Windows are [downloadable](http://igg.unistra.fr/People/guingo/)
-
-\[GS17\] Guingo, Geoffrey and Sauvage, Basile and Dischler, Jean-Michel and Cani, Marie-Paule,
-Bi-Layer Textures: A Model for Synthesis and Deformation of Composite Textures,
-Comput. Graph. Forum, July 2017,
 
 ### Noise Filter
 
@@ -235,90 +265,87 @@ Parameters:
 
 ### Synthesis_corel
 
-Extract the noise(PSD) from the different areas determined by the masks using AutoCorrelation constrainted on the content, to only pick up pixel which belong to the mask, discarding the missing informations. Then synthesis a noise layer using [RPN](http://www.math-info.univ-paris5.fr/~bgalerne/galerne_gousseau_morel_random_phase_textures_final_preprint.pdf) for each extracted PSD. 
+Extract the noise(PSD) from the different areas determined by the masks using AutoCorrelation constrainted on the content, to only pick up pixel which belong to the mask, discarding the missing informations. Then synthesis a noise layer using [^RPN] for each extracted PSD. 
+
 
 Parameter:
 - nb_cluster = need to be correlated with the masks provided
 
 
-### Biscalenoisepatchexg:
+### Biscale noise patch exchange:
 
-This is a modified version of the mono-scale On-the-Fly Multi-Scale Infinite Texturing from Example \[VSLD13\], without complex color transfers and texture fetches. It consists in Wang tiles, in which patch contents are randomly exchanged. Allowing for contents to be rotated (by angle θ ∈ {π/4, π/2, 3π/4, π}) and scaled (0.5 ≤ λ ≤ 1), and applying turbulence. 
+This is a modified version of the mono-scale On-the-Fly Multi-Scale Infinite Texturing from Example [^VSLD13], without complex color transfers and texture fetches. It consists in Wang tiles, in which patch contents are randomly exchanged. Allowing for contents to be rotated (by angle θ ∈ {π/4, π/2, 3π/4, π}) and scaled (0.5 ≤ λ ≤ 1), and applying turbulence. 
 
-\[VSLD13\] K. Vanhoey, B. Sauvage, F. Larue, J-M. Dischler
-On-the-Fly Multi-Scale Infinite Texturing from Example, Siggraph Asia, Hong Kong, Hong Kong, ACM Siggraph (Eds.), ACM, ACM Siggraph Asia 2013 Papers, Volume 32, n° 6, novembre 2013, doi:10.1145/2508363.2508383, Oral, Long, 
-
-Parameters:??
+<!--
+Parameters:
+-->
 
 If used in Bi-Layer textures context, structure layer + synchronized maks will be synthesised using this method then Noise layer will be added. 
 
 
 ## Texton Analysis
-Analysis part of Texton Noise [article](https://hal.archives-ouvertes.fr/hal-01299336v2/document). Generates all possible sizes of texton for a given input.
-
-## Periodic plus smooth
-Implementation of Periodic plus smooth image decomposition [article](http://www.math-info.univ-paris5.fr/~moisan/papers/2009-11r.pdf)
-
+Analysis part of Texton Noise [^TN]. Generates all possible sizes of texton for a given input.
 
 
 ## Graphcut textures
-The GCTexture class implements the patch-based graphcut texture synthesis method described in \[KSE+03\], using the Maxflow library \[Maxflow\]. It provides the three selection methods proposed in the paper (random placement, entire patch matching and sub-patch matching) as well as the possibility to refine synthesis results based on cut errors. The implementation of the FFT-based acceleration of SSD evaluation is not available for now. Graphcut texture synthesis combines optimal patch placement and computation of optimal cuts of arbitrary shape, which yields high-quality results for a large class of textures (stochastic to structured).
+The GCTexture class implements the patch-based graphcut texture synthesis method described in [^KSE03], using the Maxflow library [^Maxflow]. It provides the three selection methods proposed in the paper (random placement, entire patch matching and sub-patch matching) as well as the possibility to refine synthesis results based on cut errors. The implementation of the FFT-based acceleration of SSD evaluation is not available for now. Graphcut texture synthesis combines optimal patch placement and computation of optimal cuts of arbitrary shape, which yields high-quality results for a large class of textures (stochastic to structured).
 
-\[KSE+03\] Vivek Kwatra, Arno Schödl, Irfan Essa, Greg Turk, and Aaron Bobick. 2003. Graphcut textures: image and video synthesis using graph cuts. ACM Trans. Graph. (Proc. SIGGRAPH 2003), 22(3):277-286, 2003. DOI: https://doi.org/10.1145/882262.882264 
-
-\[Maxflow\] Maxflow library, Vladimir Kolmogorov, [WebSite](http://pub.ist.ac.at/~vnk/software.html)
 
 ## PatchMatch
-The PatchMatch code is adapted from the "minimal unoptimized example of PatchMatch" by Barnes et al. \[BSF+09, PatchMatch\]. PatchMatch is an efficient algorithm for matching small patches between an input and an output texture, that alternates coherent and random searches.
+The PatchMatch code is adapted from the "minimal unoptimized example of PatchMatch" by Barnes et al. [^BSF09] [^PatchMatch]. PatchMatch is an efficient algorithm for matching small patches between an input and an output texture, that alternates coherent and random searches.
 
-\[BSF+09\] C. Barnes, E. Shechtman, A. Finkelstein, and D. B. Goldman. PatchMatch: A Randomized Correspondence Algorithm for Structural Image Editing. ACM Transactions on Graphics (Proc. SIGGRAPH), 28(3), 2009.
-
-\[PatchMatch\] Minimal unoptimized example of PatchMatch, C. Barnes,
-[WebSite](http://gfx.cs.princeton.edu/pubs/Barnes_2009_PAR/index.php)
 
 ## PatchExchange
 
-Implementation of the approach proposed in \[VSLD13\] for infinite texturing. The idea is to cut a given periodic tile into a set of patches, for which alternative contents are seeked among all other possible locations over the tile.
+Implementation of the approach proposed in [^VSLD13] for infinite texturing. The idea is to cut a given periodic tile into a set of patches, for which alternative contents are seeked among all other possible locations over the tile.
 
 During synthesis, alternative contents are then randomly picked in order to ensure a high degree of variety, while keeping memory consumption very low with respect to other state-of-the-art tiling methods (eg. Wang tiling).
-
-\[VSLD13\] K. Vanhoey, B. Sauvage, F. Larue, J-M. Dischler
-On-the-Fly Multi-Scale Infinite Texturing from Example, Siggraph Asia, Hong Kong, Hong Kong, ACM Siggraph (Eds.), ACM, ACM Siggraph Asia 2013 Papers, Volume 32, n° 6, novembre 2013, doi:10.1145/2508363.2508383, Oral, Long, 
 
 
 ## SLIC Superpixels
 
-An implementation of SLIC [superpixels](http://ivrl.epfl.ch/research/superpixels) method is included in ASTex core under the form of an filter. A usage example can be found in the _Test_ directory
+An implementation of SLIC superpixel [^SLIC] method is included in ASTex core under the form of an filter. A usage example can be found in the _Test_ directory
 
 
 ## Saliency Filters
 
-An implementation of saliency map computation based on \[KP12\] is included in ASTex core under the form of a filter. A usage example can be found in the _Test_ directory.
-
-\[KP12\] Krahenbuhl, Philipp,
-Saliency Filters: Contrast Based Filtering for Salient Region Detection,
-Proceedings of the 2012 IEEE Conference on Computer Vision and Pattern Recognition (CVPR),
-[url](http://dl.acm.org/citation.cfm?id=2354409.2355041)
+An implementation of saliency map computation based on [^KP12] is included in ASTex core under the form of a filter. A usage example can be found in the _Test_ directory.
 
 
-## Quilting
-Implementation of the _image quilting_ process presented in \[EF01\]
-
-\[EF01\]
-Efros, Alexei A. and Freeman, William T.
-Image Quilting for Texture Synthesis and Transfer, SIGGRAPH '01
+## Periodic plus smooth
+An implementation of Periodic plus smooth image decomposition [^LM11]
 
 
-## Wang Tiles
+## Bibliography
 
-(Soon Available) Implementation of the _wang tile_ texture generation method presented in \[CS03\]
+[^ef01]: Efros, Alexei A. and Freeman, William T. Image Quilting for Texture Synthesis and Transfer, SIGGRAPH '01
 
-\[CS03\] Michael F. Cohen, Jonathan Shade, Stefan Hiller, Oliver Deussen, 
-Wang Tiles for image and texture generation
-ACM SIGGRAPH 2003
+[^CS03]: Michael F. Cohen, Jonathan Shade, Stefan Hiller, Oliver Deussen, Wang Tiles for image and texture generation,ACM SIGGRAPH 2003
+
+[^KSE03]: Vivek Kwatra, Arno Schödl, Irfan Essa, Greg Turk, and Aaron Bobick. Graphcut textures: image and video synthesis using graph cuts. ACM Trans. Graph. (Proc. SIGGRAPH 2003), 22(3):277-286, 2003. DOI:https://doi.org/10.1145/882262.882264 
+
+[^Maxflow]: Maxflow library, Vladimir Kolmogorov, [WebSite](http://pub.ist.ac.at/~vnk/software.html)
+
+[^BSF09]: C. Barnes, E. Shechtman, A. Finkelstein, and D. B. Goldman. PatchMatch: A Randomized Correspondence Algorithm for Structural Image Editing. ACM Transactions on Graphics (Proc. SIGGRAPH), 28(3), 2009.
+
+[^PatchMatch]: Minimal unoptimized example of PatchMatch, C. Barnes, [url](http://gfx.cs.princeton.edu/pubs/Barnes_2009_PAR/index.php)
+
+[^RPN]: Bruno Galerne, Yann Gousseau, Jean-Michel Morel, Random Phase Textures: Theory and Synthesis, IEEE Transactions on Image Processing ( Volume: 20, Issue: 1, Jan. 2011 ) DOI: 10.1109/TIP.2010.2052822 [url](http://www.math-info.univ-paris5.fr/~bgalerne/galerne_gousseau_morel_random_phase_textures_final_preprint.pdf)
 
 
+[^LM11]: Lionel Moisan Periodic Plus Smooth Image Decomposition, Journal of Mathematical Imaging and Vision, February 2011, Volume 39, Issue 2, pp 161–179 [url](https://hal.archives-ouvertes.fr/hal-00388020v2)
+
+[^SLIC]:Radhakrishna Achanta, Appu Shaji, Kevin Smith, Aurelien Lucchi, Pascal Fua, and Sabine Süsstrunk, SLIC Superpixels Compared to State-of-the-art Superpixel Methods, IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 34, num. 11, p. 2274 - 2282, May 2012. [url](http://ivrl.epfl.ch/research/superpixels)
 
 
+[^KP12]: Krahenbuhl, Philipp,Saliency Filters: Contrast Based Filtering for Salient Region Detection, Proceedings of the 2012 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), [url](http://dl.acm.org/citation.cfm?id=2354409.2355041)
+
+
+[^VSLD13]: K. Vanhoey, B. Sauvage, F. Larue, J-M. Dischler. On-the-Fly Multi-Scale Infinite Texturing from Example, Siggraph Asia,  Hong Kong, ACM Siggraph (Eds.), ACM Siggraph Asia 2013 Papers, Volume 32, n° 6, novembre 2013, doi:10.1145/2508363.2508383, Oral, Long [url](https://icube-publis.unistra.fr/docs/5117/_VSLD13-paper.pdf)
+
+
+[^GS17]: Guingo, Geoffrey and Sauvage, Basile and Dischler, Jean-Michel and Cani, Marie-Paule, Bi-Layer Textures: A Model for Synthesis and Deformation of Composite Textures, Comput. Graph. Forum, July 2017, [url](https://hal.archives-ouvertes.fr/hal-01528537/)
+
+[^TN]: Galerne, B. and Leclaire, A. and Moisan, L. Texton Noise, Computer Graphics Forum 2017, [url](https://hal.archives-ouvertes.fr/hal-01299336)
 
 
