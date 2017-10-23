@@ -1,7 +1,29 @@
-
-# Foreground
-
 # Introduction
+
+
+# News
+10/24 ASTex available on [github](https://github.com/ASTex-ICube/ASTex)
+
+
+[contribs](# Contributors and contact)
+The library is developed in the [IGG](http://icube-igg.unistra.fr/en/index.php/Main_Page) team of the [ICube](https://icube.unistra.fr/) laboratory of Strasbourg.
+The contributors are:
+
+[Rémi Allegre](http://icube-igg.unistra.fr/en/index.php/Rémi_Allègre)
+
+[Jean-Michel Dischler](http://dpt-info.u-strasbg.fr/~dischler/)
+
+[Geoffrey Guingo]
+
+[Frédéric Larue]
+
+[Basile Sauvage](http://icube-igg.unistra.fr/en/index.php/Basile_Sauvage)
+
+[Sylvain Thery](http://icube-igg.unistra.fr/en/index.php/Utilisateur:Thery)
+
+
+Contact: astex AT icube.unistra.fr
+
 
 # Installation
 ## Dependencies:
@@ -40,7 +62,7 @@ Then you can install the dependencies:
 ### Software to install:
 - VisualStudio C++ (2015 min)
 - CMake (3.0 min),
-- [ninja](https://ninja-build.org/) for multi-threaded compilation of dependencies 
+- jom (already installed if you have QtCreator) for multi-threaded compilation of dependencies 
 
 ### Source to downloads:
 - get sources of zlib
@@ -98,11 +120,14 @@ There are some original options/values that can be set at the cmake stage:
 
 ASTex is based on the library [ITK](https://itk.org/).
 As ITK can perform its algorithms (filters) on images of different dimension,
-its syntax is often complex. Their system of filter that can be easily combined
-is perfect for an high level usage, but is boring for quickly prototype application.
+its syntax is often complex. Its system of filter pipeline is perfect for an high
+level usage, but is boring for quickly prototype application with its own filters.
 
 In order to easily and quickly prototype texture generation application, we propose
 a syntax overlay for 2D image manipulation.
+
+Lots of usefull types (Index, Offset, Region, ...) are instancied in 2D cand can easily 
+generated with simple fonction.
 
 We propose also a new traversal syntax _for\_all\_pixels_ which parameter is a lambda (or functor or function) that can have different kind of signature:
 * \[const\] PixelType \[&\]
@@ -112,13 +137,18 @@ And also for the parallel version:
 * \[const\] PixelType \[&\], int16 thread_index
 * \[const\] PixelType \[&\], int x, int y, int16 thread_index
 
-Algorithm writen with new syntax can easily be encapsulated into ITK filter system.
+Algorithms writen with new syntax can easily be encapsulated into ITK filter system.
 And the two syntaxes can also be mixed to profit of provided ITK algorithms.
 
-We do not inherit from ITK image 
+We do not inherit from ITK image. Each Image class is ...
+
+<p align="center">
+	<img alt="class hierarchy" src="/assets/img/class_astex.svg" width= 70%>
+</p>
 
 
-### Supported image types
+
+## Supported image types
 
 Number of channels: 1/3/4
 
@@ -137,7 +167,7 @@ And spectral images (1 channel) :
 * float / double
 * complex of float or double
 
-## Tutorials
+# Tutorials
 There is some tutorials that explain briefly concepts and data structures of ASTex:
 * tuto_gray : 
 * tuto_rgb :
@@ -158,12 +188,11 @@ There is some tutorials that explain briefly concepts and data structures of AST
 
 To run the tuto, first copy Data/*.png in TEMPO_PATH(/tmp)
 
-#implemented
-# Implemented Algorithms
+[implemented](# Implemented Algorithms)
 
 ## Bi-Layer Textures
 
-  Implementaion if the method presented in [GS17](https://hal.archives-ouvertes.fr/hal-01528537/).
+  Implementaion of the method presented in [GS17](https://hal.archives-ouvertes.fr/hal-01528537/).
 Global implementation can be tested, but also 4 independant important step of the algorithm, as
 described below.
 
@@ -206,7 +235,7 @@ Parameter:
 
 ### Biscalenoisepatchexg:
 
-modified the mono-scale version of On-the-Fly Multi-Scale Infinite Texturing from Example \[VSLD13\], without complex color transfers and texture fetches. It consists in Wang tiles, in which patch contents are randomly exchanged. Allowing for contents to be rotated (by angle θ ∈ {π/4, π/2, 3π/4, π}) and scaled (0.5 ≤ λ ≤ 1), and applying turbulence. 
+This is a modified version of the mono-scale On-the-Fly Multi-Scale Infinite Texturing from Example \[VSLD13\], without complex color transfers and texture fetches. It consists in Wang tiles, in which patch contents are randomly exchanged. Allowing for contents to be rotated (by angle θ ∈ {π/4, π/2, 3π/4, π}) and scaled (0.5 ≤ λ ≤ 1), and applying turbulence. 
 
 \[VSLD13\] K. Vanhoey, B. Sauvage, F. Larue, J-M. Dischler
 On-the-Fly Multi-Scale Infinite Texturing from Example, Siggraph Asia, Hong Kong, Hong Kong, ACM Siggraph (Eds.), ACM, ACM Siggraph Asia 2013 Papers, Volume 32, n° 6, novembre 2013, doi:10.1145/2508363.2508383, Oral, Long, 
@@ -241,12 +270,28 @@ The PatchMatch code is adapted from the "minimal unoptimized example of PatchMat
 
 ## PatchExchange
 
+Implementation of the approach proposed in \[VSLD13\] for infinite texturing. The idea is to cut a given periodic tile into a set of patches, for which alternative contents are seeked among all other possible locations over the tile.
+
+During synthesis, alternative contents are then randomly picked in order to ensure a high degree of variety, while keeping memory consumption very low with respect to other state-of-the-art tiling methods (eg. Wang tiling).
+
+\[VSLD13\] K. Vanhoey, B. Sauvage, F. Larue, J-M. Dischler
+On-the-Fly Multi-Scale Infinite Texturing from Example, Siggraph Asia, Hong Kong, Hong Kong, ACM Siggraph (Eds.), ACM, ACM Siggraph Asia 2013 Papers, Volume 32, n° 6, novembre 2013, doi:10.1145/2508363.2508383, Oral, Long, 
+
 
 ## SLIC Superpixels
 
-An implementation of SLIC superpixels method is included in ASTex core under the form of an filter.
-A usage example can be found in the _Test_ directory
-[web](http://ivrl.epfl.ch/research/superpixels)
+An implementation of SLIC [superpixels](http://ivrl.epfl.ch/research/superpixels) method is included in ASTex core under the form of an filter. A usage example can be found in the _Test_ directory
+
+
+## Saliency Filters
+
+An implementation of saliency map computation based on \[KP12\] is included in ASTex core under the form of a filter. A usage example can be found in the _Test_ directory.
+
+\[KP12\] Krahenbuhl, Philipp,
+Saliency Filters: Contrast Based Filtering for Salient Region Detection,
+Proceedings of the 2012 IEEE Conference on Computer Vision and Pattern Recognition (CVPR),
+[url](http://dl.acm.org/citation.cfm?id=2354409.2355041)
+
 
 ## Quilting
 Implementation of the _image quilting_ process presented in \[EF01\]
@@ -254,15 +299,13 @@ Implementation of the _image quilting_ process presented in \[EF01\]
 \[EF01\]
 Efros, Alexei A. and Freeman, William T.
 Image Quilting for Texture Synthesis and Transfer, SIGGRAPH '01
-year = {2001},
 
 
 ## Wang Tiles
 
-(Soon Available)
-Implementation of the _wang tile_ texture generation method presented in \[CS03\]
+(Soon Available) Implementation of the _wang tile_ texture generation method presented in \[CS03\]
 
-\[CS03\]Michael F. Cohen, Jonathan Shade, Stefan Hiller, Oliver Deussen, 
+\[CS03\] Michael F. Cohen, Jonathan Shade, Stefan Hiller, Oliver Deussen, 
 Wang Tiles for image and texture generation
 ACM SIGGRAPH 2003
 
