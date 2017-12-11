@@ -1,132 +1,30 @@
 
-# Introduction
-
-[ASTex is an open-source library for texture analysis and synthesis.
-The term “texture” must be understood as in computer graphics.
-The purpose of this library is to support collaborative coding and to allow for comparison with recently published algorithms. 
-
-Main features are:
-- C++ source code is freely available on github
-- It is based on [ITK](https://itk.org/) (Insight Segmentation and Registration Toolkit)
-- Linux / Windows / Mac compliant 
-- No graphical interface
-- CPU implementations for maximum compatibility
-
-
-# News
-10/24 ASTex available on [github](https://github.com/ASTex-ICube/ASTex)
-
-10/27 Continuous integration online develop branch of github repository
-
-# Contributors and contact
-The library is developed in the [IGG](http://icube-igg.unistra.fr/en/index.php/Main_Page) team of the [ICube](https://icube.unistra.fr/) laboratory of Strasbourg.
-
-The contributors are:
-- [Rémi Allegre](http://igg.unistra.fr/People/allegre/)
-- [Jean-Michel Dischler](http://dpt-info.u-strasbg.fr/~dischler/)
-- Geoffrey Guingo
-- Frédéric Larue
-- [Basile Sauvage](http://icube-igg.unistra.fr/en/index.php/Basile_Sauvage)
-- [Sylvain Thery](http://icube-igg.unistra.fr/en/index.php/Utilisateur:Thery)
-
-[email contact](mailto:astex@icube.unistra.fr)
-
-
-# Architecture
-
-ASTex is based on the library [ITK](https://itk.org/).
-As ITK can perform its algorithms (filters) on images of different dimension,
-its syntax is often complex. Its system of filter pipeline is perfect for an high
-level usage, but is boring for quickly prototype application which need development of
-its own new filters.
-
-In order to easily and quickly prototype texture generation application, we propose
-a syntax overlay for 2D image manipulation.
-
-Lots of usefull types (Index, Offset, Region, ...) are instancied in 2D cand can easily 
-generated with simple fonction.
-
-We propose also a new traversal syntax _for\_all\_pixels_ which parameter is a lambda (or functor or function) that can have different kind of signature:
-* \[const\] PixelType \[&\]
-* \[const\] PixelType \[&\], int x, int y
-
-And also for the parallel version:
-* \[const\] PixelType \[&\], int16 thread_index
-* \[const\] PixelType \[&\], int x, int y, int16 thread_index
-
-Algorithms writen with new syntax can easily be encapsulated into ITK filter system.
-And the two syntaxes can also be mixed to profit of provided ITK algorithms.
-
-## Inheritance
-
-All classes of supported image type follow this kind of inheritance diagram:
-
-![Example of ASTex class hierarchy](/assets/img/class_astex.png "Example of ASTex class hierarchy")
-
-- the ImageBase class is only used for type checking
-- the ImageGrayBase class is the real gray image class. I contains a pointer on itk::image, some type definitions and methods which depends on image type.
-- the ImageCommon class enhance its param image class with all code that is common to image types.
-The second parameter allow the definition of *normal* Image and class ConstImage. It is important
-to allow the writing of filters with out wild const_cast.
-
-<!--
-
-<p align="center">
-	<img alt="class hierarchy" src="/assets/img/class_astex.png" width= 70%>
-</p>
-
--->
-
-
-## Supported image types
-
-Number of channels: 1/3/4
-
-* ImageGray 1 channel
-* ImageRGB 2 channels
-* ImageRGBA 3 channels
-
-With the possible channel types:
-
-* int8 / int16 / int32 / int64
-* uint8 / uint16 / uint32 / uint64
-* float / double
-
-And spectral images (1 channel) :
-
-* float / double
-* complex of float or double
-
-All floating-point images can be load and save with on the fly conversion from \[0,2\]to uint8 classic file format or saved in EXR 32 bits float format (double is not supported).
-
-# Tutorials
-
-There is some tutorials that explain briefly concepts and data structures of ASTex:
-* tuto_gray : loading, modifying and saving gray images
-* tuto_rgb : loading, modifying and saving RGB images
-* tuto_pixel_type: Usage of the PixelType and ASTexPixelType.
-* tuto_traverse_iterators: how to traverse pixels using Iterator syntax (inherited from ITK)
-* tuto_traverse_for\_all: how to traverse pixels using for_all_pixels c++11 lambda programming style.
-* tuto_mask: definition, manipulation and usage of masks
-* tuto\_png\_indexed
-* tuto\_color\_filters: color conversion RGB LUV XYZ LAB
-* tuto on creating filters
-  * tuto_filter1: example of pure itk filters (mono-thread/multi-thread)
-  * tuto_filter2: example of filters using ASTex syntax (simple, in place & mt)
-  * tuto_filter3: example of filter with 2 inputs (1 output)
-  * tuto_filter4: example of filter with 2 inputs of different types
-  * tuto_filter5: example of filter with 4 ouputs of different types
-  * tuto_filter6: example of filter with an output whose size is different from the input 
-  * tuto_filter7: example of filter with 2 outputs of different size
-
-To run the tuto, first copy Data/*.png in TEMPO_PATH(/tmp)
 
 # Implemented Algorithms
 
 ## Quilting
 Implementation of the _image quilting_ process presented in [^ef01]
 
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/quilting1.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting1.png" width="200"></a>
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/quilting2.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting2.png" width="200"></a>
+
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/quilting3.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting3.png" width="200"></a>
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/quilting4.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting4.png" width="200"></a>
+
+</p>
+
 <!--
+	<em> <strong>Figure 1</strong>: A cellular decomposition of a 2-dimensional object and its incidence graph </em>
+
+
 [^ef01]: \[EF01\]Efros, Alexei A. and Freeman, William T.<br>
 Image Quilting for Texture Synthesis and Transfer,<br> SIGGRAPH '01
 -->
@@ -134,7 +32,16 @@ Image Quilting for Texture Synthesis and Transfer,<br> SIGGRAPH '01
 ## Wang Tiles
 
 Implementation of the _wang tile_ texture generation method presented in [^CS03]
-[Example](http://igg.unistra.fr/People/astex/astex_gallery/index.html#wang)
+
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/wang_tiles2.png">
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/wang_tiles2.png" width="200"></a>
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/wang_gen2.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/wang_gen2.png" width="200"></a>
+</p>
+
+
 
 ## Bi-Layer Textures
 
@@ -210,14 +117,32 @@ During synthesis, alternative contents are then randomly picked in order to ensu
 
 An implementation of SLIC superpixel [^SLIC] method is included in ASTex core under the form of an filter. A usage example can be found in the _Test_ directory
 
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/SLIC_MEAN.png">
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/SLIC_MEAN.png" width="200"></a>
+</p>
+
 
 ## Saliency Filters
 
 An implementation of saliency map computation based on [^KP12] is included in ASTex core under the form of a filter. A usage example can be found in the _Test_ directory.
 
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/saliency.png">
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/saliency.png" width="200"></a>
+</p>
+
 
 ## Periodic plus smooth
 An implementation of Periodic plus smooth image decomposition [^LM11]
+
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/lena_periosmooth.png">
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/lena_periosmooth.png" width="200"></a>
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/leaf_periosmooth.png">
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/leaf_periosmooth.png" width="200"></a>
+</p>
 
 
 ## Bibliography

@@ -7,12 +7,12 @@ $(document).ready(function(){
 		widthFromWrapper: false
 	});
 
-        imgArray = ["url(assets/img/quilt1.png)",
-                    "url(assets/img/quilt2.png)",
-                    "url(assets/img/quilt3.png)",
-                    "url(assets/img/quilt4.png)"];
+        imgArray = ["url(assets/img/banner1.png)",
+                    "url(assets/img/banner2.png)",
+                    "url(assets/img/banner3.png)",
+                    "url(assets/img/banner4.png)"];
         randomNumber = Math.floor((Math.random() * imgArray.length));
-        imgh = imgArray[randomNumber] + " no-repeat 400px 20px";
+        imgh = imgArray[randomNumber] + " no-repeat 400px 4px";
 	$("#header_wrap").css('background',imgh);
 
        // $("#main_content_wrap").css('background','url(assets/img/lena_big.jpg)');

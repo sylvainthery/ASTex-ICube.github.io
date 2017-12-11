@@ -17,12 +17,11 @@
     <!-- HEADER -->
 	{% include header.html %}
 
+	{% include top_menu.html %}
+
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
-      <nav id="side_menu">
-        {% include menu.html %}
-	  </nav>
-      <section id="main_content" class="inner">
+      <section>
         {{ content }}
       </section>
     </div>
