@@ -1,5 +1,3 @@
-# Introduction
-
 ASTex is an open-source library for texture analysis and synthesis.
 The term “texture” must be understood as in computer graphics.
 The purpose of this library is to support collaborative coding and to allow for comparison with recently published algorithms. 
@@ -13,7 +11,6 @@ Main features are:
 
 # News
 10/24 ASTex available on [github](https://github.com/ASTex-ICube/ASTex)
-
 10/27 Continuous integration online develop branch of github repository
 
 # Contributors and contact
@@ -67,11 +64,4 @@ All classes of supported image type follow this kind of inheritance diagram:
 The second parameter allow the definition of *normal* Image and class ConstImage. It is important
 to allow the writing of filters with out wild const_cast.
 
-<!--
-
-<p align="center">
-	<img alt="class hierarchy" src="/assets/img/class_astex.png" width= 70%>
-</p>
-
--->
 

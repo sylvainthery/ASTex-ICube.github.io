@@ -7,17 +7,17 @@ Implementation of the _image quilting_ process presented in [^ef01]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting1.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting1.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting1.png" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting2.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting2.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting2.png" width="200" style="padding:20px"></a>
 
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting3.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting3.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting3.png" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting4.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/quilting4.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting4.png" width="200" style="padding:20px"></a>
 
 </p>
 
@@ -35,10 +35,10 @@ Implementation of the _wang tile_ texture generation method presented in [^CS03]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/wang_tiles2.png">
-	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/wang_tiles2.png" width="200"></a>
+	<img alt="wang tiles" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_tiles2.png" style="padding:20px" width="200"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/wang_gen2.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/wang_gen2.png" width="200"></a>
+	<img alt="wang generation" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_gen2.png" style="padding:20px" width="200"></a>
 </p>
 
 
@@ -48,6 +48,15 @@ Implementation of the _wang tile_ texture generation method presented in [^CS03]
   Implementaion of the method presented in [^GS17].
 Global implementation can be tested, but also 4 independant important step of the algorithm, as
 described below.
+
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/blue_rust_blt.jpg">
+	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_blue_rust_blt.jpg" width="200" style="padding:20px"></a>
+
+	<a href="http://igg.unistra.fr/People/astex/gallery/lichen_blt.jpg">
+	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_lichen_blt.jpg" width="200" style="padding:20px"></a>
+
+</p>
 
 Executable for Linux, Mac & Windows are [downloadable](http://igg.unistra.fr/People/guingo/)
 
@@ -110,6 +119,11 @@ The PatchMatch code is adapted from the "minimal unoptimized example of PatchMat
 
 Implementation of the approach proposed in [^VSLD13] for infinite texturing. The idea is to cut a given periodic tile into a set of patches, for which alternative contents are seeked among all other possible locations over the tile.
 
+<p align="center">
+	<a href="http://igg.unistra.fr/People/astex/gallery/brick_content_exchange.jpg">
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_brick_content_exchange.jpg" width="200"></a>
+</p>
+
 During synthesis, alternative contents are then randomly picked in order to ensure a high degree of variety, while keeping memory consumption very low with respect to other state-of-the-art tiling methods (eg. Wang tiling).
 
 
@@ -119,7 +133,7 @@ An implementation of SLIC superpixel [^SLIC] method is included in ASTex core un
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/SLIC_MEAN.png">
-	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/SLIC_MEAN.png" width="200"></a>
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_SLIC_MEAN.png" width="200"></a>
 </p>
 
 
@@ -129,7 +143,7 @@ An implementation of saliency map computation based on [^KP12] is included in AS
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/saliency.png">
-	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/saliency.png" width="200"></a>
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_saliency.png" width="200"></a>
 </p>
 
 
@@ -138,10 +152,10 @@ An implementation of Periodic plus smooth image decomposition [^LM11]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/lena_periosmooth.png">
-	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/lena_periosmooth.png" width="200"></a>
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_lena_periosmooth.png" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/leaf_periosmooth.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/leaf_periosmooth.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_leaf_periosmooth.png" width="200" style="padding:20px"></a>
 </p>
 
 
