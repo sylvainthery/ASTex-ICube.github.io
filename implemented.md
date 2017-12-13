@@ -7,18 +7,17 @@ Implementation of the _image quilting_ process presented in [^ef01]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting1.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting1.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting1.png" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting2.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting2.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting2.png" width="200" style="padding:20px"></a>
 
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting3.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting3.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting3.png" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/quilting4.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting4.png" width="200"></a>
-
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_quilting4.png" width="200" style="padding:20px"></a>
 </p>
 
 <!--
@@ -35,10 +34,10 @@ Implementation of the _wang tile_ texture generation method presented in [^CS03]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/wang_tiles2.png">
-	<img alt="wang tiles" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_tiles2.png" width="200"></a>
+	<img alt="wang tiles" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_tiles2.png" style="padding:20px" width="200"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/wang_gen2.png">
-	<img alt="wang generation" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_gen2.png" width="200"></a>
+	<img alt="wang generation" src="http://igg.unistra.fr/People/astex/gallery/mini_wang_gen2.png" style="padding:20px" width="200"></a>
 </p>
 
 
@@ -51,11 +50,10 @@ described below.
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/blue_rust_blt.jpg">
-	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_blue_rust_blt.jpg" width="200"></a>
+	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_blue_rust_blt.jpg" width="200" style="padding:20px"></a>
 
 	<a href="http://igg.unistra.fr/People/astex/gallery/lichen_blt.jpg">
-	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_lichen_blt.jpg" width="200"></a>
-
+	<img alt="BLT" src="http://igg.unistra.fr/People/astex/gallery/mini_lichen_blt.jpg" width="200" style="padding:20px"></a>
 </p>
 
 Executable for Linux, Mac & Windows are [downloadable](http://igg.unistra.fr/People/guingo/)
@@ -152,10 +150,9 @@ An implementation of Periodic plus smooth image decomposition [^LM11]
 
 <p align="center">
 	<a href="http://igg.unistra.fr/People/astex/gallery/lena_periosmooth.png">
-	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_lena_periosmooth.png" width="200"></a>
-
+	<img alt="" src="http://igg.unistra.fr/People/astex/gallery/mini_lena_periosmooth.png" width="200" style="padding:20px"></a>
 	<a href="http://igg.unistra.fr/People/astex/gallery/leaf_periosmooth.png">
-	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_leaf_periosmooth.png" width="200"></a>
+	<img alt="quilting" src="http://igg.unistra.fr/People/astex/gallery/mini_leaf_periosmooth.png" width="200" style="padding:20px"></a>
 </p>
 
 
